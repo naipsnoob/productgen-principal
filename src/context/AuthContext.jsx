@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { base44 } from '@/api/base44Client';
+// import { base44 } from '@/api/base44Client'; // Removido o import direto do Base44
 import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
@@ -11,33 +11,20 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   // Função para simular a obtenção do usuário e seu status de plano
+  // Função para simular a obtenção do usuário e seu status de plano
   const fetchUserStatus = async () => {
-    try {
-      // Tenta obter o usuário logado via Base44
-      const loggedUser = await base44.auth.getUser();
-      
-      if (loggedUser) {
-        // Simulação de verificação de plano. Na vida real, você faria uma chamada à sua API
-        // para obter o status de assinatura do usuário (ex: 'free', 'basic', 'premium').
-        // Aqui, vamos simular que o usuário está logado e tem um plano 'basic'.
-        const userWithPlan = {
-          ...loggedUser,
-          planStatus: 'basic', // Simulação: O usuário está logado e tem um plano
-        };
-
-        setUser(userWithPlan);
-        setIsAuthenticated(true);
-      } else {
-        setUser(null);
-        setIsAuthenticated(false);
-      }
-    } catch (error) {
-      console.error("Erro ao buscar status do usuário:", error);
+    // Na solução mock, o estado inicial é sempre deslogado.
+    // Em uma solução real, você verificaria o token no localStorage ou faria uma chamada à API.
+    const storedUser = JSON.parse(localStorage.getItem('mockUser'));
+    
+    if (storedUser) {
+      setUser(storedUser);
+      setIsAuthenticated(true);
+    } else {
       setUser(null);
       setIsAuthenticated(false);
-    } finally {
-      setLoading(false);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -47,31 +34,44 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = () => {
-    // Redireciona para o fluxo de login do Base44
-    base44.auth.redirectToLogin();
-    // O Base44 irá redirecionar de volta, e o useEffect/fetchUserStatus irá capturar o estado
+    // MOCK: Simula um login bem-sucedido
+    const mockUser = {
+      id: 'mock-user-123',
+      email: 'teste@exemplo.com',
+      name: 'Usuário Mock',
+      planStatus: 'basic', // Simulação: O usuário está logado e tem um plano
+    };
+    
+    localStorage.setItem('mockUser', JSON.stringify(mockUser));
+    setUser(mockUser);
+    setIsAuthenticated(true);
+    navigate('/dashboard'); // Redireciona para o dashboard após o login simulado
   };
 
   const logout = async () => {
-    try {
-      await base44.auth.logout();
-      setUser(null);
-      setIsAuthenticated(false);
-      navigate('/'); // Redireciona para a Landing Page após o logout
-    } catch (error) {
-      console.error("Erro ao fazer logout:", error);
-    }
+    // MOCK: Simula um logout
+    localStorage.removeItem('mockUser');
+    setUser(null);
+    setIsAuthenticated(false);
+    navigate('/'); // Redireciona para a Landing Page após o logout
   };
 
   // Função para simular a compra de um plano e redirecionar
   const subscribe = (planName) => {
-    // Lógica real de pagamento/assinatura aqui
-    console.log(`Iniciando processo de assinatura para o plano: ${planName}`);
-    // Após o sucesso da assinatura, você atualizaria o estado do usuário
-    // e redirecionaria para o dashboard.
+    // MOCK: Simula a assinatura e o login
+    console.log(`MOCK: Assinatura para o plano: ${planName}`);
     
-    // Por enquanto, apenas redireciona para a página de preços, como já estava
-    navigate('/pricing'); 
+    const mockUser = {
+      id: 'mock-user-123',
+      email: 'teste@exemplo.com',
+      name: 'Usuário Mock',
+      planStatus: planName === 'Plano 1000' ? 'premium' : 'basic', // Simula um plano
+    };
+    
+    localStorage.setItem('mockUser', JSON.stringify(mockUser));
+    setUser(mockUser);
+    setIsAuthenticated(true);
+    navigate('/dashboard'); // Redireciona para o dashboard após a assinatura simulada
   };
 
   return (
