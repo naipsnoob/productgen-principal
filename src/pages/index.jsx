@@ -16,10 +16,16 @@ import PrimeiroAcesso from "./PrimeiroAcesso";
 import CompraSucesso from "./CompraSucesso";
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { AuthProvider } from '../context/AuthContext';
+import { AuthProvider, useAuth } from '../context/AuthContext';
 import ProtectedRoute from '../components/ProtectedRoute';
 
 function PagesContent() {
+    // O AuthProvider já lida com o estado de loading,
+    // mas se quisermos um loading screen mais simples aqui, podemos usar:
+    // const { loading } = useAuth();
+    // if (loading) return <LoadingScreen />;
+    
+    return (
     return (
         <Layout>
             <Routes>
