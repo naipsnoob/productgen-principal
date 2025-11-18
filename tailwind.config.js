@@ -3,7 +3,10 @@ export default {
   content: [
     "./index.html",
     "./bling-callback.html",
-    "./*.{js,ts,jsx,tsx}",
+    "./App.tsx",
+    "./components.tsx",
+    "./pages.tsx",
+    "./bling-callback.tsx",
   ],
   theme: {
     extend: {

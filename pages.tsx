@@ -93,14 +93,26 @@ export const HomePage: React.FC = () => {
     return (
         <div className="bg-white">
             {/* Hero Section */}
-            <section className="text-center py-20 px-4">
-                <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 mb-4 leading-tight">Crie produtos para o seu marketplace com o poder da IA</h1>
-                <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-                    Gere títulos, descrições, traduza, remova fundos e muito mais. Integre com Bling e automatize seu fluxo de trabalho.
-                </p>
-                <Button onClick={() => navigate('/pricing')} className="text-lg px-8 py-3">Começar Agora</Button>
-                <div className="mt-12 max-w-5xl mx-auto">
-                    <img src="https://picsum.photos/seed/dashboard/1200/600" alt="Dashboard do ProductGen" className="rounded-lg shadow-2xl ring-1 ring-gray-900/10" />
+            <section className="relative text-center py-20 px-4 overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-b from-primary-50 to-white z-0"></div>
+                <div className="relative z-10">
+                    <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 mb-4 leading-tight tracking-tight">Crie produtos para o seu marketplace com o poder da IA</h1>
+                    <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+                        Gere títulos, descrições, traduza, remova fundos e muito mais. Integre com Bling e automatize seu fluxo de trabalho.
+                    </p>
+                    <Button 
+                        onClick={() => navigate('/pricing')} 
+                        className="text-lg px-8 py-4 transform hover:scale-105 transition-transform duration-300 ease-in-out shadow-lg bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800"
+                    >
+                        Começar Agora
+                    </Button>
+                    <div className="mt-16 max-w-6xl mx-auto px-4">
+                        <img 
+                            src="https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=1331&auto=format&fit=crop" 
+                            alt="Dashboard do ProductGen mostrando a interface de criação de produtos com IA" 
+                            className="rounded-xl shadow-2xl ring-1 ring-gray-900/10" 
+                        />
+                    </div>
                 </div>
             </section>
 
