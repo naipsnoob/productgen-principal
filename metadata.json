@@ -1,0 +1,5 @@
+{
+  "name": "ProductGen principal",
+  "description": "An AI-powered application to automatically generate optimized product listings for marketplaces, with integrations for platforms like Bling and Stripe.",
+  "requestFramePermissions": []
+}
